@@ -15,6 +15,7 @@ library("janitor")
 library("splm")
 library("plm")
 library("geodist")
+library("plotly")
 
 
 # Lyon -----------------
@@ -151,9 +152,6 @@ compute_linear_weight <- function(l.d, cutoff) {
 
 l.counters_spatial_weights <- compute_linear_weight(l.d, cutoff = 1000)
 
-
-
-
 # convert distance to kilometers
 l.dd <- l.d / 1000
 
@@ -161,12 +159,9 @@ l.dd <- l.d / 1000
 # different weighing systems
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=24.99574,kernel="exponential",adaptive=FALSE)
 l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "gaussian", adaptive = FALSE)
-l.ounters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "bisquare", adaptive = FALSE)
-l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "tricube", adaptive = FALSE)
-l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "boxcar", adaptive = FALSE)
-
-
-
+# l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "bisquare", adaptive = FALSE)
+# l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "tricube", adaptive = FALSE)
+# l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "boxcar", adaptive = FALSE)
 
 # Fit Spatial Panel Linear Models
 l.results <- matrix(0, 16, 2)
@@ -204,7 +199,7 @@ summary(l.sdid_ind)
 #############################################################################################################################################
 ### PARIS
 # read data
-p.data <- read.csv(here::here("data/Paris/input-data.csv", header = TRUE))
+p.data <- read.csv(here::here("data/Paris/input-data.csv"), header = TRUE)
 p.description <- read.csv(here::here("data/Paris/input - description.csv"))
 
 
@@ -301,12 +296,7 @@ p.monthly.agg.unpiv <- p.monthly.agg.unpiv[-ncol(p.monthly.agg.unpiv)]
 p.monthly.agg.unpiv <- p.monthly.agg.unpiv %>% relocate(s.improvement, .after = improvement)
 
 
-#| echo: false
-
-
 paris_streetnet <- dodgr_streetnet("Paris, France")
-
-
 
 p.monthly.agg.unpiv$variable <- sub(".SC", "", p.monthly.agg.unpiv$variable)
 
@@ -359,17 +349,15 @@ p.d <- dodgr_dists(p.graph,
   to = p.graph[p.pts, ]$from_id
 )
 
-
-
 #  Bandwidth selection for basic GWR
 p.dd <- p.d / 1000
 
 
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=11.37453,kernel="exponential",adaptive=FALSE)
 p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "gaussian", adaptive = FALSE)
-p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "bisquare", adaptive = FALSE)
-p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "tricube", adaptive = FALSE)
-p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "boxcar", adaptive = FALSE)
+# p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "bisquare", adaptive = FALSE)
+# p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "tricube", adaptive = FALSE)
+# p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "boxcar", adaptive = FALSE)
 
 # Fit Spatial Panel Linear Models
 p.results <- matrix(0, 16, 2)
