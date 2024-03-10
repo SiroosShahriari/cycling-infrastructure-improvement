@@ -22,7 +22,7 @@ library("plotly")
 
 # read data
 l.data <- read.csv(here::here("data/Lyon/input-data.csv"), header = TRUE)
-l.description <- read.csv(here::here("data/Lyon/input-descdription.csv"))
+l.description <- read.csv(here::here("data/Lyon/input-description.csv"))
 
 # data cleaning
 ## group by genre
@@ -200,7 +200,7 @@ summary(l.sdid_ind)
 ### PARIS
 # read data
 p.data <- read.csv(here::here("data/Paris/input-data.csv"), header = TRUE)
-p.description <- read.csv(here::here("data/Paris/input - description.csv"))
+p.description <- read.csv(here::here("data/Paris/input-description.csv"))
 
 
 # data cleaning
