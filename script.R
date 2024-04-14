@@ -154,11 +154,11 @@ l.counters_spatial_weights <- compute_linear_weight(l.d, cutoff = 1000)
 
 # convert distance to kilometers
 l.dd <- l.d / 1000
-
+lyon_spatial_cutoff_km = 10
 
 # different weighing systems
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=24.99574,kernel="exponential",adaptive=FALSE)
-l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "gaussian", adaptive = FALSE)
+l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = lyon_spatial_cutoff_km, kernel = "gaussian", adaptive = FALSE)
 # l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "bisquare", adaptive = FALSE)
 # l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "tricube", adaptive = FALSE)
 # l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = "boxcar", adaptive = FALSE)
@@ -167,8 +167,7 @@ l.counters_spatial_weights <- GWmodel::gw.weight(l.dd, bw = max(l.dd), kernel = 
 l.results <- matrix(0, 16, 2)
 l.charlist <- c("2019-02-01", "2019-03-01", "2019-04-01", "2019-05-01", "2019-06-01", "2019-07-01", "2019-08-01", "2019-09-01", "2019-10-01", "2019-11-01", "2019-12-01", "2020-01-01", "2020-02-01", "2020-03-01", "2020-04-01", "2020-05-01")
 
-for (i in l.charlist)
-{
+for (i in l.charlist) {
   i <- c("2024-02-01")
   l.bike_usage_panel_df <- l.bike_usage %>%
     filter(date < i) %>%
@@ -351,10 +350,12 @@ p.d <- dodgr_dists(p.graph,
 
 #  Bandwidth selection for basic GWR
 p.dd <- p.d / 1000
+paris_spatial_cutoff_km = 10
 
 
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=11.37453,kernel="exponential",adaptive=FALSE)
-p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "gaussian", adaptive = FALSE)
+# p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "gaussian", adaptive = FALSE)
+p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = paris_spatial_cutoff_km, kernel = "gaussian", adaptive = FALSE)
 # p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "bisquare", adaptive = FALSE)
 # p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "tricube", adaptive = FALSE)
 # p.counters_spatial_weights <- GWmodel::gw.weight(p.dd, bw = max(p.dd), kernel = "boxcar", adaptive = FALSE)
