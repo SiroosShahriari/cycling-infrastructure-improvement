@@ -154,7 +154,7 @@ l.counters_spatial_weights <- compute_linear_weight(l.d, cutoff = 1000)
 
 # convert distance to kilometers
 l.dd <- l.d / 1000
-lyon_spatial_cutoff_km = 10
+lyon_spatial_cutoff_km <- 10
 
 # different weighing systems
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=24.99574,kernel="exponential",adaptive=FALSE)
@@ -350,7 +350,7 @@ p.d <- dodgr_dists(p.graph,
 
 #  Bandwidth selection for basic GWR
 p.dd <- p.d / 1000
-paris_spatial_cutoff_km = 10
+paris_spatial_cutoff_km <- 10
 
 
 # counters_spatial_weights <- GWmodel::gw.weight(dd,bw=11.37453,kernel="exponential",adaptive=FALSE)
